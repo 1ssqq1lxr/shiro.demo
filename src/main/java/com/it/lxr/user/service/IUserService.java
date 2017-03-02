@@ -5,5 +5,5 @@ package com.it.lxr.user.service;
  *
  */
 public interface IUserService  {
-		
+		public 
 }
