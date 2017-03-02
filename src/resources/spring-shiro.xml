@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<description>== Shiro Components ==</description>
+
+
+
+
+
+
+
+	<!-- 授权 认证 -->
+	<bean id="sampleRealm" class="com.sojson.core.shiro.token.SampleRealm"></bean>
+   <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" /> 
+
+   <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+       <!-- session的失效时长，单位毫秒 -->
+     <property name="globalSessionTimeout" value="600000"/>
+      <!-- 删除失效的session -->
+     <property name="deleteInvalidSessions" value="true"/>
+   </bean>
+
+
+   <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
+        <property name="realm" ref="sampleRealm"/>
+
+	             <!-- 使用配置的缓存管理器 --> 
+     <property name="cacheManager" ref="cacheManager"></property> 
+     <!-- 会话管理 -->
+     <property name="sessionManager" ref="sessionManager" />
+  </bean> 
+
+
+
+	<!-- 自定义角色过滤器 支持多个角色可以访问同一个资源 eg:/home.jsp = authc,roleOR[admin,user] 用户有admin或者user角色 
+		就可以访问 -->
+
+<!-- 	认证数据库存储  -->
+	<bean id="shiroManager" class="com.it.lxr.permission.service.impl.ShiroManagerImpl" />
+	<bean id="login" class="com.it.lxr.permission.filter.LoginFilter" />
+	<bean id="role" class="com.it.lxr.permission.filter.RoleFilter" />
+	<bean id="permission" class="com.it.lxr.permission.filter.PermissionFilter" />
+
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/u/login.shtml" />
+		<!-- TODO 待提取 -->
+		<property name="successUrl" value="/" />
+		<property name="unauthorizedUrl" value="/" />
+
+		<!-- 初始配置，现采用自定义 -->
+		<property name="filterChainDefinitions" >
+		<value>
+<!-- 		/** = user
+		 /page/login.jsp = anon
+		/page/register/* = anon
+		/page/index.jsp = authc
+		/page/addItem* = authc,roles[数据管理员]
+		/page/file* = authc,roleOR[普通用户,数据管理员]
+		/page/listItems* = authc,roleOR[数据管理员,普通用户]
+		/page/showItem* = authc,roleOR[数据管理员,普通用户]
+		/page/updateItem*=authc,roles[数据管理员] -->
+		</value>
+		</property>
+		<!-- 读取初始自定义权限内容
+		<property name="filterChainDefinitions" value="#{shiroManager.loadFilterChainDefinitions()}" />
+		<property name="filters">
+			<util:map>
+				<entry key="login" value-ref="login"></entry>
+				<entry key="role" value-ref="role"></entry>
+				<entry key="simple" value-ref="simple"></entry>
+				<entry key="permission" value-ref="permission"></entry>
+			</util:map>
+		</property>
+		 -->
+	</bean>
+	<!-- Shiro生命周期处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+
+	<!-- ============================================================================ -->
+
+</beans>
+
