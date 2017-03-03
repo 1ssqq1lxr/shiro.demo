@@ -1,27 +1,24 @@
 package com.it.lxr.permission.realm;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AccountException;
+import javax.security.auth.login.AccountException;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.sojson.common.model.UUser;
-import com.sojson.core.shiro.token.manager.TokenManager;
-import com.sojson.permission.service.PermissionService;
-import com.sojson.permission.service.RoleService;
-import com.sojson.user.service.UUserService;
+import com.it.lxr.permission.token.ShiroToken;
+import com.it.lxr.user.po.UUser;
+import com.it.lxr.user.service.IUserService;
 
 
 /**
@@ -44,7 +41,8 @@ import com.sojson.user.service.UUserService;
  * 
  */
 public class SampleRealm extends AuthorizingRealm {
-
+	@Autowired
+	IUserService userService;	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		// TODO Auto-generated method stub
@@ -52,9 +50,33 @@ public class SampleRealm extends AuthorizingRealm {
 	}
 
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		// TODO Auto-generated method stub
-		return null;
+		ShiroToken token = (ShiroToken) authcToken;
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("email", token.getUsername());
+		map.put("pswd",token.getPswd());
+ 		UUser user = null;
+		try {
+			user = userService.queryUser(map);
+			if(null == user){
+				throw new AccountException("帐号或密码不正确！");
+			/**
+			 * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
+			 */
+			}else if(UUser._0.equals(user.getStatus())){
+				throw new DisabledAccountException("帐号已经禁止登录！");
+			}else{
+				//更新登录时间 last login time
+				user.setLastLoginTime(new Date());
+				userService.updateByPrimaryKeySelective(user);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new SimpleAuthenticationInfo(user,user.getPswd(), getName());		
 	}
 
 //	@Autowired
@@ -73,21 +95,7 @@ public class SampleRealm extends AuthorizingRealm {
 //	protected AuthenticationInfo doGetAuthenticationInfo(
 //			AuthenticationToken authcToken) throws AuthenticationException {
 //		
-//		ShiroToken token = (ShiroToken) authcToken;
-//		UUser user = userService.login(token.getUsername(),token.getPswd());
-//		if(null == user){
-//			throw new AccountException("帐号或密码不正确！");
-//		/**
-//		 * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
-//		 */
-//		}else if(UUser._0.equals(user.getStatus())){
-//			throw new DisabledAccountException("帐号已经禁止登录！");
-//		}else{
-//			//更新登录时间 last login time
-//			user.setLastLoginTime(new Date());
-//			userService.updateByPrimaryKeySelective(user);
-//		}
-//		return new SimpleAuthenticationInfo(user,user.getPswd(), getName());
+//	
 //    }
 //
 //	 /** 

@@ -19,12 +19,26 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public UUser queryUser(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
+			UUser user = new UUser();
 				try {
-					UUser user = userDao.queryUser(map);
+					user = userDao.queryUser(map);
 				} catch (Exception e) {
 					// TODO: handle exception
 					LoggerUtils.error(UserServiceImpl.class,  e.getMessage());
 				}
-				return null;
+				return user;
+	}
+
+
+
+	@Override
+	public void updateByPrimaryKeySelective(UUser user) {
+		try {
+			userDao.updateByPrimaryKeySelective(user);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	
+		
 	} 
 }

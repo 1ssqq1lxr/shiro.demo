@@ -9,4 +9,6 @@ public interface UserDao {
 
 	UUser queryUser(Map<String, Object> map);
 
+	void updateByPrimaryKeySelective(UUser user);
+
 }

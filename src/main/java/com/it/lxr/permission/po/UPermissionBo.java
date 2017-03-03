@@ -2,8 +2,7 @@ package com.it.lxr.permission.po;
 
 import java.io.Serializable;
 
-import com.sojson.common.model.UPermission;
-import com.sojson.common.utils.StringUtils;
+import com.it.lxr.common.utils.StringUtils;
 
 /**
  * 

@@ -26,13 +26,12 @@
 	
 	
 	<!-- 自动扫描 标签 -->
-	<context:component-scan base-package="com.sojson.*.*.tag;com.sojson.*.tag" />
-	<bean name="api" class="com.sojson.core.tags.APITemplateModel"></bean>
-	<bean name="springContextUtil" class="com.sojson.common.utils.SpringContextUtil" scope="singleton"></bean>
+	<context:component-scan base-package="com.it.lxr.common.utils.freemarker.tags;com.it.lxr.common.utils.freemarker.extend" />
+	<bean name="api" class="com.it.lxr.common.utils.freemarker.tags.APITemplateModel"></bean>
+	<bean name="springContextUtil" class="com.it.lxr.common.utils.SpringContextUtil" scope="singleton"></bean>
 	
 	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
 	<mvc:annotation-driven  />
-	
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">  
 		<property name="messageConverters">  
 	        <list>  
@@ -88,7 +87,7 @@
 	<!-- 配置freeMarker视图解析器 -->
 	<bean id="viewResolverFtl"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="viewClass" value="com.sojson.core.freemarker.extend.FreeMarkerViewExtend" />
+		<property name="viewClass" value="com.it.lxr.common.utils.freemarker.extend.FreeMarkerViewExtend" />
 		<!-- 把Freemarker 扩展一下，把相关属性加入进去。。。 -->
 		<property name="contentType" value="text/html; charset=utf-8" />
 		<property name="cache" value="true" />
@@ -108,7 +107,7 @@
 
 	<!-- 配置freeMarker 拓展-->
 	<bean id="freemarkerConfig"
-		class="com.sojson.core.freemarker.extend.FreeMarkerConfigExtend">
+		class="com.it.lxr.common.utils.freemarker.extend.FreeMarkerConfigExtend">
 		<property name="templateLoaderPath">
 			<value>/WEB-INF/ftl/</value>
 		</property>

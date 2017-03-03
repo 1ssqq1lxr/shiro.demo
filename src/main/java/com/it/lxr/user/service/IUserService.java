@@ -17,6 +17,8 @@ public interface IUserService  {
 	 * @throws Exception
 	 */
 	public UUser queryUser(Map<String, Object> map)throws Exception;
+
+	public void updateByPrimaryKeySelective(UUser user);
 	
 	
 	

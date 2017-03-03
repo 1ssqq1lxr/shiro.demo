@@ -2,7 +2,7 @@ package com.it.lxr.permission.po;
 
 import java.io.Serializable;
 
-import com.sojson.common.model.UUser;
+import com.it.lxr.user.po.UUser;
 /**
  * 用户角色分配 查询列表BO
  * @author zhou-baicheng

@@ -12,9 +12,9 @@ import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.springframework.core.io.ClassPathResource;
 
-import com.sojson.common.utils.LoggerUtils;
-import com.sojson.core.config.INI4j;
-import com.sojson.core.shiro.service.ShiroManager;
+import com.it.lxr.common.utils.INI4j;
+import com.it.lxr.common.utils.LoggerUtils;
+import com.it.lxr.permission.service.ShiroManager;
 /**
  * shiro 加载filterChain
  * @author Administrator

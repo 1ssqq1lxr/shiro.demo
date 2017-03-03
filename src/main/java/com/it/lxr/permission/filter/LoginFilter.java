@@ -8,9 +8,10 @@ import javax.servlet.ServletResponse;
 
 import org.apache.shiro.web.filter.AccessControlFilter;
 
-import com.sojson.common.model.UUser;
-import com.sojson.common.utils.LoggerUtils;
-import com.sojson.core.shiro.token.manager.TokenManager;
+import com.it.lxr.common.utils.LoggerUtils;
+import com.it.lxr.permission.token.manager.TokenManager;
+import com.it.lxr.user.po.UUser;
+
 /**
  * 登录filter
  * @author Administrator

@@ -2,8 +2,7 @@ package com.it.lxr.permission.po;
 
 import java.io.Serializable;
 
-import com.sojson.common.model.URole;
-import com.sojson.common.utils.StringUtils;
+import com.it.lxr.common.utils.StringUtils;
 
 public class URoleBo extends URole implements Serializable{
 	private static final long serialVersionUID = 1L;

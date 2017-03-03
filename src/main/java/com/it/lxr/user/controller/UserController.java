@@ -1,14 +1,18 @@
 package com.it.lxr.user.controller;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@Scope(value="prototype")
 @RequestMapping("user")
 public class UserController {
-		@RequestMapping("index.shtml")
-		public String index(){
-			System.out.println("123123123");
-			return "index";
-		}
+	@RequestMapping(value="index",method=RequestMethod.GET)
+	public String userIndex(){
+		
+		return "user/index";
+	}
+	
 }

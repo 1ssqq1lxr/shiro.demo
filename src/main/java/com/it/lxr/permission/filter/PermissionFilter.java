@@ -13,7 +13,7 @@ import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
 
-import com.sojson.common.utils.LoggerUtils;
+import com.it.lxr.common.utils.LoggerUtils;
 /**
  * 权限Filter
  * @author Administrator

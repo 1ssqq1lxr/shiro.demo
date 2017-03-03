@@ -16,7 +16,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import com.sojson.core.shiro.token.manager.TokenManager;
+import com.it.lxr.permission.token.manager.TokenManager;
   
 public class VerifyCodeUtils{  
   

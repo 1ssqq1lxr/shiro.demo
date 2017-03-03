@@ -14,4 +14,9 @@
 	<select id="queryUser" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 			select id,nickname,email,pswd,create_time,last_login_time,status from u_user where email = #{email} and pswd =#{pswd} 
 	</select>
+	<update id="updateByPrimaryKeySelective" parameterType="com.it.lxr.user.po.UUser">
+	
+		
+		update u_user set last_login_time = now() where email = #{nickname}
+	</update>
 </mapper>

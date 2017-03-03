@@ -19,7 +19,7 @@
 
 
 	<!-- 授权 认证 -->
-	<bean id="sampleRealm" class="com.sojson.core.shiro.token.SampleRealm"></bean>
+	<bean id="sampleRealm" class="com.it.lxr.permission.realm.SampleRealm"></bean>
    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" /> 
 
    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
@@ -61,7 +61,9 @@
 		<!-- 初始配置，现采用自定义 -->
 		<property name="filterChainDefinitions" >
 		<value>
-<!-- 		/** = user
+		/u/*= anon
+		/** = user
+<!-- 		
 		 /page/login.jsp = anon
 		/page/register/* = anon
 		/page/index.jsp = authc

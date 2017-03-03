@@ -1,12 +1,9 @@
 package com.it.lxr.user.controller;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
 
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.web.util.SavedRequest;
@@ -19,15 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.it.lxr.common.utils.LoggerUtils;
+import com.it.lxr.common.utils.StringUtils;
+import com.it.lxr.permission.token.manager.TokenManager;
+import com.it.lxr.user.po.UUser;
 import com.it.lxr.user.service.IUserService;
-import com.sojson.common.controller.BaseController;
-import com.sojson.common.model.UUser;
-import com.sojson.common.utils.LoggerUtils;
-import com.sojson.common.utils.StringUtils;
-import com.sojson.common.utils.VerifyCodeUtils;
-import com.sojson.core.shiro.token.manager.TokenManager;
-import com.sojson.user.manager.UserManager;
-import com.sojson.user.service.UUserService;
+
 
 /**
  * open开放页面
@@ -37,9 +31,11 @@ import com.sojson.user.service.UUserService;
 @Controller
 @Scope(value="prototype")
 @RequestMapping("u")
-public class UserLoginController extends BaseController {
+public class UserLoginController {
 	@Autowired
 	IUserService userService;
+	
+	Map<String, Object> resultMap = new HashMap<String,Object>();
 	/**
 	 * 登录跳转
 	 * @return
