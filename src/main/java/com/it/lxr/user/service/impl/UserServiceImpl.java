@@ -1,12 +1,30 @@
 package com.it.lxr.user.service.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.it.lxr.common.utils.LoggerUtils;
 import com.it.lxr.user.dao.UserDao;
+import com.it.lxr.user.po.UUser;
 import com.it.lxr.user.service.IUserService;
 @Service("userService")
 public class UserServiceImpl implements IUserService{
 	@Autowired	
-	UserDao userDao; 
+	UserDao userDao;
+
+
+
+	@Override
+	public UUser queryUser(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+				try {
+					UUser user = userDao.queryUser(map);
+				} catch (Exception e) {
+					// TODO: handle exception
+					LoggerUtils.error(UserServiceImpl.class,  e.getMessage());
+				}
+				return null;
+	} 
 }
