@@ -3,20 +3,26 @@ package com.it.lxr.permission.realm;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.security.auth.login.AccountException;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.it.lxr.permission.service.IPermissionService;
 import com.it.lxr.permission.token.ShiroToken;
+import com.it.lxr.permission.token.manager.TokenManager;
 import com.it.lxr.user.po.UUser;
 import com.it.lxr.user.service.IUserService;
 
@@ -29,10 +35,19 @@ import com.it.lxr.user.service.IUserService;
 public class SampleRealm extends AuthorizingRealm {
 	@Autowired
 	IUserService userService;	
+	@Autowired
+	IPermissionService permissionService;	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
-		// TODO Auto-generated method stub
-		return null;
+    	Long userId = TokenManager.getUserId();
+		SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
+		//根据用户ID查询角色（role），放入到Authorization里。
+		Set<String> roles = permissionService.findRoleByUserId(userId);
+		info.setRoles(roles);
+		//根据用户ID查询权限（permission），放入到Authorization里。
+		Set<String> permissions = permissionService.findPermissionByUserId(userId);
+		info.setStringPermissions(permissions);
+		return info;
 	}
 
 	@Override
@@ -104,17 +119,17 @@ public class SampleRealm extends AuthorizingRealm {
 //     * 清空当前用户权限信息
 //     */
 	public  void clearCachedAuthorizationInfo() {
-//		PrincipalCollection principalCollection = SecurityUtils.getSubject().getPrincipals();
-//		SimplePrincipalCollection principals = new SimplePrincipalCollection(
-//				principalCollection, getName());
-//		super.clearCachedAuthorizationInfo(principals);
+		PrincipalCollection principalCollection = SecurityUtils.getSubject().getPrincipals();
+		SimplePrincipalCollection principals = new SimplePrincipalCollection(
+				principalCollection, getName());
+		super.clearCachedAuthorizationInfo(principals);
 	}
 	/**
 	 * 指定principalCollection 清除
 	 */
 	public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
-//		SimplePrincipalCollection principals = new SimplePrincipalCollection(
-//				principalCollection, getName());
-//		super.clearCachedAuthorizationInfo(principals);
+		SimplePrincipalCollection principals = new SimplePrincipalCollection(
+				principalCollection, getName());
+		super.clearCachedAuthorizationInfo(principals);
 	}
 }
