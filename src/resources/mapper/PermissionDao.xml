@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.lxr.permission.dao.PermissionDao">
+	<select id="findRoleByUserId" parameterType="java.lang.Long"
+		resultType="java.lang.String">
+		SELECT u2.type from u_user_role u1 LEFT JOIN u_role u2 on u1.rid = u2.id
+		WHERE u1.uid = #{userId}
+	</select>
+	<select id="findPermissionByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+		SELECT
+		u4.url
+		FROM
+		u_user_role u1
+		LEFT JOIN u_role u2 ON u1.rid = u2.id
+		LEFT JOIN u_role_permission u3 ON u2.id = u3.rid
+		LEFT JOIN u_permission u4 ON u3.pid = u4.id
+		WHERE
+		u1.uid = #{userId};
+	</select>
+</mapper>
