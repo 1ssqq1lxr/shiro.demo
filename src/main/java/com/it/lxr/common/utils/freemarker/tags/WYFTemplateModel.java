@@ -13,21 +13,7 @@ import freemarker.template.TemplateModelException;
 
 
 /**
- * 
- * 开发公司：WENYIFAN.NET <br/>
- * 版权：WENYIFAN.NET <br/>
- * <p>
- * 基础标签类
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2014年4月28日 　<br/>
- * <p>
- * *******
- * <p>
- * @author zhou-baicheng
- * 
- * @version 1.0,2014年4月28日 <br/>
+
  * 
  */
 @SuppressWarnings("unchecked")

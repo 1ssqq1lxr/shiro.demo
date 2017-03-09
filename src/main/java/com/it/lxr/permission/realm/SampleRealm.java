@@ -28,8 +28,7 @@ import com.it.lxr.user.service.IUserService;
 
 
 /**
- * 
- 
+ * lxr
  * 
  */
 public class SampleRealm extends AuthorizingRealm {

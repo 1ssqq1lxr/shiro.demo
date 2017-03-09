@@ -57,12 +57,30 @@
 		<!-- TODO 待提取 -->
 		<property name="successUrl" value="/" />
 		<property name="unauthorizedUrl" value="/" />
+		<property name="filters">
+			<util:map>
+				<entry key="login" value-ref="login"></entry>
+				<entry key="role" value-ref="role"></entry>
+				<entry key="permission" value-ref="permission"></entry>
+			</util:map>
+		</property>
 
 		<!-- 初始配置，现采用自定义 -->
 		<property name="filterChainDefinitions" >
 		<value>
+		
 		/u/*= anon
-		/** = user
+		/user/**=login
+		/js/**=anon
+		/css/**=anon 
+		/open/**=anon
+		/permission/selectPermissionById.shtml=login
+		/role/mypermission.shtml=login
+		/role/getPermissionTree.shtml=login
+		/role/selectRoleByUserId.shtml=login
+		/permission/**=login,permission
+		/role/**=login,permission
+		/** = login
 <!-- 		
 		 /page/login.jsp = anon
 		/page/register/* = anon
@@ -76,15 +94,9 @@
 		</property>
 		<!-- 读取初始自定义权限内容
 		<property name="filterChainDefinitions" value="#{shiroManager.loadFilterChainDefinitions()}" />
-		<property name="filters">
-			<util:map>
-				<entry key="login" value-ref="login"></entry>
-				<entry key="role" value-ref="role"></entry>
-				<entry key="simple" value-ref="simple"></entry>
-				<entry key="permission" value-ref="permission"></entry>
-			</util:map>
-		</property>
+
 		 -->
+
 	</bean>
 	<!-- Shiro生命周期处理器 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />

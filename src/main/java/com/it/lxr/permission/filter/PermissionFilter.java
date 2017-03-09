@@ -26,6 +26,7 @@ public class PermissionFilter extends AccessControlFilter {
 	 */
 	protected boolean isAccessAllowed(ServletRequest request,
 			ServletResponse response, Object mappedValue) throws Exception {
+		//mappedValue 值得是permission["role:lue","role:delete"]
 		
 		//先判断带参数的权限判断
 		Subject subject = getSubject(request, response);

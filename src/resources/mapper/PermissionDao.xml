@@ -17,4 +17,23 @@
 		WHERE
 		u1.uid = #{userId};
 	</select>
+	<resultMap id="UPermission" type="com.it.lxr.permission.po.UPermission">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="name" jdbcType="VARCHAR" property="name" />	
+	</resultMap>
+	
+	<select id="findPage" resultMap="UPermission" >
+			select	* from u_permission
+			<if test="findContent != null">
+			where  name		like concat("%",${findContent},"%")
+			</if>
+			limit ${pageNo},${pageSize}
+	</select>
+	<select id="findSumPage" resultType="java.lang.Integer">
+			select	count(*) from u_permission
+			<if test="findContent != null">
+			where  name		like concat("%",${findContent},"%")
+			</if>
+	</select>
 </mapper>
