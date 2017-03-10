@@ -88,7 +88,7 @@
 				<div class="col-md-10">
 					<h2>权限列表</h2>
 					<hr>
-					<form method="post" action="" id="formId" class="form-inline">
+					<form method="post" action="/permission/index.shtml" id="formId" class="form-inline">
 						<div clss="well">
 					      <div class="form-group">
 					        <input type="text" class="form-control" style="width: 300px;" value="${findContent?default('')}" 

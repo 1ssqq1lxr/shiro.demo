@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -16,12 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.it.lxr.common.utils.LoggerUtils;
 import com.it.lxr.common.utils.Pagination;
+import com.it.lxr.common.utils.RequestUtils;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.service.IPermissionService;
 import com.it.lxr.permission.token.manager.TokenManager;
 import com.it.lxr.user.manager.UserManager;
 import com.it.lxr.user.po.UUser;
 import com.it.lxr.user.service.IUserService;
+import com.sun.tools.internal.ws.processor.model.Request;
 
 import net.sf.json.JSONObject;
 
@@ -37,7 +41,8 @@ public class PermissionController {
 	Map<String, Object> resultMap = new HashMap<String,Object>();
 	
 	@RequestMapping(value="index")
-	public ModelAndView index(String findContent,ModelMap modelMap,Integer pageNo){
+	public ModelAndView index(String findContent,ModelMap modelMap,HttpServletRequest request){
+		int pageNo = (int) RequestUtils.getParameterAsDefInInt(request, "pageNo", 1);
 		modelMap.put("findContent", findContent);
 		modelMap.put("pageSize", pageSize);
 		modelMap.put("pageNo", (pageNo-1)*pageSize);
@@ -45,8 +50,8 @@ public class PermissionController {
 		List<UPermission> permissions = permissionService.findPage(modelMap);
 		
 		int  pagecount = permissionService.findSumPage(modelMap);
-		Pagination<UPermission> pagination = new Pagination(pageNo,pageSize,pagecount,permissions);
-		return new ModelAndView("permission/index","page",permissions);
+		Pagination<UPermission> pagination = new Pagination<UPermission>(pageNo,pageSize,pagecount,permissions);
+		return new ModelAndView("permission/index","page",pagination);
 	}
 	/**
 	 * 权限添加
