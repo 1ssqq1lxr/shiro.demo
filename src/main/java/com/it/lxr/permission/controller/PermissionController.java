@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ import com.it.lxr.user.po.UUser;
 import com.it.lxr.user.service.IUserService;
 import com.sun.tools.internal.ws.processor.model.Request;
 
+import freemarker.template.utility.StringUtil;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -42,8 +44,11 @@ public class PermissionController {
 	
 	@RequestMapping(value="index")
 	public ModelAndView index(String findContent,ModelMap modelMap,HttpServletRequest request){
+		
 		int pageNo = (int) RequestUtils.getParameterAsDefInInt(request, "pageNo", 1);
-		modelMap.put("findContent", findContent);
+		if(StringUtils.isNotBlank(findContent)){
+			modelMap.put("findContent", findContent);
+		}
 		modelMap.put("pageSize", pageSize);
 		modelMap.put("pageNo", (pageNo-1)*pageSize);
 

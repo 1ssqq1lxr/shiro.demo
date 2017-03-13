@@ -7,9 +7,9 @@
         <link   rel="icon" href="http://img.wenyifan.net/images/favicon.ico" type="image/x-icon" />
 		<link   rel="shortcut icon" href="http://img.wenyifan.net/images/favicon.ico" />
         <!-- CSS -->
-        <link rel="stylesheet" href="http://open.sojson.com/itboy/js/itboy/app/reset.css">
-        <link rel="stylesheet" href="http://open.sojson.com/itboy/js/itboy/app/supersized.css">
-        <link rel="stylesheet" href="http://open.sojson.com/itboy/js/itboy/app/style.css"/>
+        <link rel="stylesheet" href="http://open.itboy.net/itboy/js/itboy/app/reset.css">
+        <link rel="stylesheet" href="http://open.itboy.net/itboy/js/itboy/app/supersized.css">
+        <link rel="stylesheet" href="http://open.itboy.net/itboy/js/itboy/app/style.css"/>
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
             <script src="http://static.supportfolios.com/js/www/html5shiv.js"></script>
@@ -169,10 +169,10 @@
             </form>
         </div>
         <!-- Javascript -->
-       <script  src="http://open.sojson.com/common/jquery/jquery1.8.3.min.js"></script>
-        <script src="http://open.sojson.com/common/MD5.js"></script>
-        <script src="http://open.sojson.com/itboy/js/itboy/app/supersized.3.2.7.min.js"></script>
-        <script src="http://open.sojson.com/itboy/js/itboy/app/supersized-init.js"></script>
+       <script  src="http://open.itboy.net/common/jquery/jquery1.8.3.min.js"></script>
+        <script src="http://open.itboy.net/common/MD5.js"></script>
+        <script src="http://open.itboy.net/itboy/js/itboy/app/supersized.3.2.7.min.js"></script>
+        <script src="http://open.itboy.net/itboy/js/itboy/app/supersized-init.js"></script>
 		<script  src="${basePath}/js/common/layer/layer.js"></script>
         <script >
 			jQuery(document).ready(function() {

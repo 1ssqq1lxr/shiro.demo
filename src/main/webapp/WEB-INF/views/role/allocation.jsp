@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link   rel="shortcut icon" href="http://img.wenyifan.net/images/favicon.ico" />
 		<link href="<%=basePath%>/js/common/bootstrap/3.3.5/css/bootstrap.min.css?${_v}" rel="stylesheet"/>
 		<link href="<%=basePath%>/css/common/base.css?${_v}" rel="stylesheet"/>
-		<script  src="http://open.sojson.com/common/jquery/jquery1.8.3.min.js"></script>
+		<script  src="http://open.itboy.net/common/jquery/jquery1.8.3.min.js"></script>
 		<script  src="<%=basePath%>/js/common/layer/layer.js"></script>
 		<script  src="<%=basePath%>/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script  src="<%=basePath%>/js/shiro.demo.js"></script>
