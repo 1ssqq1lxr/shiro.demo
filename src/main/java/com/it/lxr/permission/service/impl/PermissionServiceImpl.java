@@ -1,6 +1,7 @@
 package com.it.lxr.permission.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,9 +100,14 @@ public class PermissionServiceImpl implements IPermissionService {
 			LoggerUtils.fmtError(getClass(), e, "根据IDS删除用户出现错误，ids[%s]", ids);
 			resultMap.put("status", 500);
 			resultMap.put("message", "删除出现错误，请刷新后再试！");
+			ArrayList  list = new ArrayList();
+			Map<K, V>
 		}
 		return resultMap;
+		
+
 		// TODO Auto-generated method stub
 	}
+	
 
 }

@@ -36,4 +36,10 @@
 			where  name		like concat("%",${findContent},"%")
 			</if>
 	</select>
+	<select id="findRolePermissionByPid" parameterType="int" resultMap="UPermission">
+			select u1.* from u_permission u1 where not exists (select * from  u_role_permission u2 where u2.pid  =#{id}) and u1.id=#{id}
+	</select>
+	<select id="deletePermissionById" parameterType="int">
+			delete from u_permission where id = #{id}
+	</select>
 </mapper>
