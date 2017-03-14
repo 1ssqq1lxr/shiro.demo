@@ -38,6 +38,18 @@ public interface PermissionDao {
 	 * @return
 	 */
 	int findSumPage(ModelMap modelMap);
+	/**
+	 *查询是否有在使用中的权限（已分配给角色）
+	 * @param id
+	 * @return
+	 */
+	List<UPermission> findRolePermissionByPid(Long id);
+	/**
+	 *	通过id删除权限
+	 * @param id
+	 * @return
+	 */
+	int deletePermissionById(Long id);
 
 
 

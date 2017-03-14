@@ -40,6 +40,12 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	int findSumPage(ModelMap modelMap);
+	/**
+	 *	删除所有权限
+	 * @param ids
+	 * @return
+	 */
+	Map<String, Object> deletePermissionById(String ids);
 
 	
 	
