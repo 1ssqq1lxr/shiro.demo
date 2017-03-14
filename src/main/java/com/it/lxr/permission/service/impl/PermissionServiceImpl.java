@@ -101,7 +101,6 @@ public class PermissionServiceImpl implements IPermissionService {
 			resultMap.put("status", 500);
 			resultMap.put("message", "删除出现错误，请刷新后再试！");
 			ArrayList  list = new ArrayList();
-			Map<K, V>
 		}
 		return resultMap;
 		
