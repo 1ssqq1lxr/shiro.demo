@@ -24,6 +24,7 @@ import com.it.lxr.common.utils.LoggerUtils;
 import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.permission.dao.PermissionDao;
 import com.it.lxr.permission.po.UPermission;
+import com.it.lxr.permission.po.URole;
 import com.it.lxr.permission.service.IPermissionService;
 import com.it.lxr.permission.service.ShiroManager;
 /**
@@ -106,6 +107,24 @@ public class PermissionServiceImpl implements IPermissionService {
 		
 
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void insertSelective(UPermission psermission) {
+		// TODO Auto-generated method stub
+		permissionDao.insertPermission(psermission);
+	}
+
+	@Override
+	public List<URole> findRolePage(ModelMap modelMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int findRoleSumPage(ModelMap modelMap) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 

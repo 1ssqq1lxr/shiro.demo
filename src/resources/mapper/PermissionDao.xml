@@ -26,20 +26,23 @@
 	<select id="findPage" resultMap="UPermission" >
 			select	* from u_permission
 			<if test="findContent != null">
-			where  name		like concat("%",${findContent},"%")
+			where  name		like concat("%",#{findContent},"%")
 			</if>
 			limit ${pageNo},${pageSize}
 	</select>
 	<select id="findSumPage" resultType="java.lang.Integer">
 			select	count(*) from u_permission
 			<if test="findContent != null">
-			where  name		like concat("%",${findContent},"%")
+			where  name		like concat("%",#{findContent},"%")
 			</if>
 	</select>
 	<select id="findRolePermissionByPid" parameterType="int" resultMap="UPermission">
-			select u1.* from u_permission u1 where not exists (select * from  u_role_permission u2 where u2.pid  =#{id}) and u1.id=#{id}
+			select u1.* from u_permission u1 where  exists (select * from  u_role_permission u2 where u2.pid  =#{id}) and u1.id=#{id}
 	</select>
-	<select id="deletePermissionById" parameterType="int">
+	<delete id="deletePermissionById" parameterType="int">
 			delete from u_permission where id = #{id}
-	</select>
+	</delete>
+	<insert id="insertPermission" parameterType="com.it.lxr.permission.po.UPermission">
+			insert into u_permission (url,name) values(#{url},#{name})
+	</insert>
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 
 import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.permission.po.UPermission;
+import com.it.lxr.permission.po.URole;
 import com.it.lxr.user.po.UUser;
 
 /**
@@ -29,7 +30,7 @@ public interface IPermissionService  {
 	 */
 	Set<String> findPermissionByUserId(Long userId);
 	/**
-	 * 通过
+	 * 分页查询权限
 	 * @param modelMap
 	 * @return
 	 */
@@ -46,6 +47,23 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	Map<String, Object> deletePermissionById(String ids);
+	/**
+	 *插入新的权限
+	 * @param psermission
+	 */
+	void insertSelective(UPermission psermission);
+	/**
+	 * 分页查询角色
+	 * @param modelMap
+	 * @return
+	 */
+	List<URole> findRolePage(ModelMap modelMap);
+	/**
+	 * 查询所有角色
+	 * @param modelMap
+	 * @return
+	 */
+	int findRoleSumPage(ModelMap modelMap);
 
 	
 	

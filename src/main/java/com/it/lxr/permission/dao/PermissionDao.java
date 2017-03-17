@@ -50,8 +50,6 @@ public interface PermissionDao {
 	 * @return
 	 */
 	int deletePermissionById(Long id);
-
-
-
+	void insertPermission(UPermission psermission);
 
 }

@@ -66,15 +66,14 @@ public class PermissionController {
 	@RequestMapping(value="addPermission",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> addPermission(UPermission psermission){
-//		try {
-//			UPermission entity = permissionService.insertSelective(psermission);
-//			resultMap.put("status", 200);
-//			resultMap.put("entity", entity);
-//		} catch (Exception e) {
-//			resultMap.put("status", 500);
-//			resultMap.put("message", "添加失败，请刷新后再试！");
-//			LoggerUtils.fmtError(getClass(), e, "添加权限报错。source[%s]", psermission.toString());
-//		}
+		try {
+			permissionService.insertSelective(psermission);
+			resultMap.put("status", 200);
+		} catch (Exception e) {
+			resultMap.put("status", 500);
+			resultMap.put("message", "添加失败，请刷新后再试！");
+			LoggerUtils.fmtError(getClass(), e, "添加权限报错。source[%s]", psermission.toString());
+		}
 		return resultMap;
 	}
 	/**
