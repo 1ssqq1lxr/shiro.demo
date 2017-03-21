@@ -118,13 +118,13 @@ public class PermissionServiceImpl implements IPermissionService {
 	@Override
 	public List<URole> findRolePage(ModelMap modelMap) {
 		// TODO Auto-generated method stub
-		return null;
+		return 	permissionDao.findRolePage(modelMap);
 	}
 
 	@Override
 	public int findRoleSumPage(ModelMap modelMap) {
 		// TODO Auto-generated method stub
-		return 0;
+		return permissionDao.findRoleSumPage(modelMap);
 	}
 	
 

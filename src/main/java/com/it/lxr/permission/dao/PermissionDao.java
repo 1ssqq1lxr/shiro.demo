@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.ui.ModelMap;
 
 import com.it.lxr.permission.po.UPermission;
+import com.it.lxr.permission.po.URole;
 import com.it.lxr.user.po.UUser;
 /**
  * lxr
@@ -50,6 +51,22 @@ public interface PermissionDao {
 	 * @return
 	 */
 	int deletePermissionById(Long id);
+	/**
+	 * 
+	 * @param psermission
+	 */
 	void insertPermission(UPermission psermission);
+	/**
+	 * 分页查询所有角色
+	 * @param modelMap
+	 * @return
+	 */
+	List<URole> findRolePage(ModelMap modelMap);
+	/**
+	 * 查询角色总数
+	 * @param modelMap
+	 * @return
+	 */
+	int findRoleSumPage(ModelMap modelMap);
 
 }

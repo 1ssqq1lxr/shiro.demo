@@ -45,4 +45,22 @@
 	<insert id="insertPermission" parameterType="com.it.lxr.permission.po.UPermission">
 			insert into u_permission (url,name) values(#{url},#{name})
 	</insert>
+	<resultMap id="URole" type="com.it.lxr.permission.po.URole">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />	
+		<result column="type" jdbcType="VARCHAR" property="type" />
+	</resultMap>
+	<select id="findRolePage"  resultMap="URole">
+		select	 * from u_role 
+		<if test="findContent != null">
+			where  ( name like concat("%",#{findContent},"%") or	type like concat("%",#{findContent},"%") )
+			</if>
+			limit ${pageNo},${pageSize}
+	</select>
+		<select id="findRoleSumPage" resultType="java.lang.Integer">
+		select	 count(*) from u_role 
+		<if test="findContent != null">
+			where  (name like concat("%",#{findContent},"%") or	type like concat("%",#{findContent},"%"))
+			</if>
+	</select>
 </mapper>
