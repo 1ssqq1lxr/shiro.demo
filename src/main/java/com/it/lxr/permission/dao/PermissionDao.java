@@ -68,5 +68,17 @@ public interface PermissionDao {
 	 * @return
 	 */
 	int findRoleSumPage(ModelMap modelMap);
+	/**
+	 * 插入角色
+	 * @param role
+	 * @return
+	 */
+	int insertRole(URole role);
+	/**
+	 * 删除角色
+	 * @param id
+	 * @return
+	 */
+	int deleteByPrimaryKey(Long id);
 
 }

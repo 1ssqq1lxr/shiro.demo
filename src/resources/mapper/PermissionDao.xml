@@ -63,4 +63,12 @@
 			where  (name like concat("%",#{findContent},"%") or	type like concat("%",#{findContent},"%"))
 			</if>
 	</select>
+	<insert id="insertRole" parameterType="com.it.lxr.permission.po.URole">
+		insert into u_role (name,type) values (#{name},#{type})
+	</insert>
+	<delete id="deleteByPrimaryKey"  parameterType="java.lang.Long">
+	
+		delete from u_role where id = #{id}
+	</delete>
+	
 </mapper>

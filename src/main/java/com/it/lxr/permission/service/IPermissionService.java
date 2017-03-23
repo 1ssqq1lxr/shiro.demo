@@ -64,6 +64,18 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	int findRoleSumPage(ModelMap modelMap);
+	/**
+	 * 插入角色
+	 * @param role
+	 * @return
+	 */
+	int insertRole(URole role);
+	/**
+	 *根据id删除角色
+	 * @param ids
+	 * @return
+	 */
+	Map<String, Object> deleteRoleById(String ids);
 
 	
 	

@@ -126,6 +126,47 @@ public class PermissionServiceImpl implements IPermissionService {
 		// TODO Auto-generated method stub
 		return permissionDao.findRoleSumPage(modelMap);
 	}
+
+	@Override
+	public int insertRole(URole role) {
+		// TODO Auto-generated method stub
+		
+		return permissionDao.insertRole(role);
+	}
+
+	@Override
+	public Map<String, Object> deleteRoleById(String ids) {
+		// TODO Auto-generated method stub
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			int count=0;
+			String resultMsg = "删除成功。";
+			String[] idArray = new String[]{};
+			if(StringUtils.contains(ids, ",")){
+				idArray = ids.split(",");
+			}else{
+				idArray = new String[]{ids};
+			}
+			
+			c:for (String idx : idArray) {
+				Long id = new Long(idx);
+				if(new Long(1).equals(id)){
+					resultMsg = "操作成功，But'系统管理员不能删除。";
+					continue c;
+				}else{
+					count+=permissionDao.deleteByPrimaryKey(id);
+				}
+			}
+			resultMap.put("status", 200);
+			resultMap.put("count", count);
+			resultMap.put("resultMsg", resultMsg);
+		} catch (Exception e) {
+			LoggerUtils.fmtError(getClass(), e, "根据IDS删除用户出现错误，ids[%s]", ids);
+			resultMap.put("status", 500);
+			resultMap.put("message", "删除出现错误，请刷新后再试！");
+		}
+		return resultMap;
+	}
 	
 
 }
