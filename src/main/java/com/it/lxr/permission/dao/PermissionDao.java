@@ -80,5 +80,11 @@ public interface PermissionDao {
 	 * @return
 	 */
 	int deleteByPrimaryKey(Long id);
+	/**
+	 * 查询我的角色权限（-对多）
+	 * @param map
+	 * @return
+	 */
+	List<URole> findNowAllPermission(Map<String, Object> map);
 
 }

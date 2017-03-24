@@ -49,6 +49,11 @@
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />	
 		<result column="type" jdbcType="VARCHAR" property="type" />
+		 <association property="permissions" javaType="com.it.lxr.permission.po.UPermission">
+            <id property="id" column="pid"/>
+            <result property="name" column="pname"/>
+             <result property="url" column="purl"/>
+         </association>
 	</resultMap>
 	<select id="findRolePage"  resultMap="URole">
 		select	 * from u_role 
@@ -70,5 +75,16 @@
 	
 		delete from u_role where id = #{id}
 	</delete>
+	
+	<select id="findNowAllPermission" resultMap="URole">
+			SELECT
+				u2.id ,u2.`name`,u2.type,u4.id as pid,u4.`name` as pname ,u4.url as purl
+			FROM
+				u_user_role u1
+			LEFT JOIN u_role u2 ON u1.rid = u2.id
+			LEFT JOIN u_role_permission u3	ON u2.id = u3.rid
+			LEFT JOIN u_permission u4 ON u3.pid = u4.id
+			where u1.uid = #{userId}
+	</select>
 	
 </mapper>

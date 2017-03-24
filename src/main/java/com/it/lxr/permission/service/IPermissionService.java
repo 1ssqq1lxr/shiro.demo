@@ -76,6 +76,11 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	Map<String, Object> deleteRoleById(String ids);
+	/**
+	 * 查询我的角色权限
+	 * @return
+	 */
+	List<URole> findNowAllPermission();
 
 	
 	

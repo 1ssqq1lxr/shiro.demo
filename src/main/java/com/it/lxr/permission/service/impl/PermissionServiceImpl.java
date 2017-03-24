@@ -1,32 +1,22 @@
 package com.it.lxr.permission.service.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
-import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
-import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
-import com.it.lxr.common.utils.INI4j;
 import com.it.lxr.common.utils.LoggerUtils;
-import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.permission.dao.PermissionDao;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.URole;
 import com.it.lxr.permission.service.IPermissionService;
-import com.it.lxr.permission.service.ShiroManager;
+import com.it.lxr.permission.token.manager.TokenManager;
 /**
  * permission service
  *
@@ -166,6 +156,16 @@ public class PermissionServiceImpl implements IPermissionService {
 			resultMap.put("message", "删除出现错误，请刷新后再试！");
 		}
 		return resultMap;
+	}
+
+	@Override
+	public List<URole> findNowAllPermission() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userId", TokenManager.getUserId());
+		
+		List<URole>  roles=permissionDao.findNowAllPermission(map);
+		// TODO Auto-generated method stub
+		return roles;
 	}
 	
 

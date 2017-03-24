@@ -68,7 +68,7 @@
 		<!-- 初始配置，现采用自定义 -->
 		<property name="filterChainDefinitions" >
 		<value>
-		
+		/logout.shtml = logout
 		/u/*= anon
 		/user/**=login
 		/js/**=anon
