@@ -17,7 +17,7 @@ public class UserServiceImpl implements IUserService{
 
 
 	@Override
-	public UUser queryUser(Map<String, Object> map) throws Exception {
+	public UUser queryUser(Map<String, Object> map)  {
 		// TODO Auto-generated method stub
 			UUser user = new UUser();
 				try {
@@ -40,6 +40,15 @@ public class UserServiceImpl implements IUserService{
 		}
 	
 		
+	}
+
+
+
+	@Override
+	public UUser insert(UUser entity) {
+		// TODO Auto-generated method stub
+		
+		return userDao.insert(entity);
 	}
 
 

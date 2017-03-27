@@ -1,5 +1,6 @@
 package com.it.lxr.user.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.it.lxr.common.utils.LoggerUtils;
 import com.it.lxr.common.utils.StringUtils;
+import com.it.lxr.common.utils.VerifyCodeUtils;
 import com.it.lxr.permission.token.manager.TokenManager;
+import com.it.lxr.user.manager.UserManager;
 import com.it.lxr.user.po.UUser;
 import com.it.lxr.user.service.IUserService;
+import net.sf.json.JSONObject;
 
 
 /**
@@ -93,6 +97,43 @@ public class UserLoginController {
 			resultMap.put("message", "帐号或密码错误");
 		}
 			
+		return resultMap;
+	}
+	/**
+	 * 注册 && 登录
+	 * @param vcode		验证码	
+	 * @param entity	UUser实体
+	 * @return
+	 */
+	@RequestMapping(value="subRegister",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> subRegister(String vcode,UUser entity){
+		resultMap.put("status", 400);
+		if(!VerifyCodeUtils.verifyCode(vcode)){
+			resultMap.put("message", "验证码不正确！");
+			return resultMap;
+		}
+		String email =  entity.getEmail();
+		resultMap.put("email", email);
+		UUser user = userService.queryUser(resultMap);
+		if(null != user){
+			resultMap.put("message", "帐号|Email已经存在！");
+			return resultMap;
+		}
+		Date date = new Date();
+		entity.setCreateTime(date);
+		entity.setLastLoginTime(date);
+		//把密码md5
+		entity = UserManager.md5Pswd(entity);
+		//设置有效
+		entity.setStatus(UUser._1);
+		
+		entity = userService.insert(entity);
+		LoggerUtils.fmtDebug(getClass(), "注册插入完毕！", JSONObject.fromObject(entity).toString());
+		entity = TokenManager.login(entity, Boolean.TRUE);
+		LoggerUtils.fmtDebug(getClass(), "注册后，登录完毕！", JSONObject.fromObject(entity).toString());
+		resultMap.put("message", "注册成功！");
+		resultMap.put("status", 200);
 		return resultMap;
 	}
 	

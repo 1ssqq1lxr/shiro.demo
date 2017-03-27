@@ -11,4 +11,6 @@ public interface UserDao {
 
 	void updateByPrimaryKeySelective(UUser user);
 
+	UUser insert(UUser entity);
+
 }

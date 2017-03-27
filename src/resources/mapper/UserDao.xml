@@ -9,23 +9,40 @@
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
 		<result column="status" jdbcType="INTEGER" property="status" />
-	
+
 	</resultMap>
 	<select id="queryUser" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-			select id,nickname,email,pswd,create_time,last_login_time,status from u_user where email = #{email} and pswd =#{pswd} 
+		select id,nickname,email,pswd,create_time,last_login_time,status from
+		u_user where email = #{email}
+		<if test="pswd !=null and pswd!= '' ">
+			and pswd =#{pswd}
+		</if>
+
 	</select>
 	<update id="updateByPrimaryKeySelective" parameterType="com.it.lxr.user.po.UUser">
-	
-		
-		update u_user 
+
+
+		update u_user
 		<set>
 			<if test="last_login_time !=null">
 				last_login_time = now()
 			</if>
 			<if test="pswd != null">
-					pswd = #{pswd}
+				pswd = #{pswd}
 			</if>
 		</set>
-		 where email = #{nickname}
+		where email = #{nickname}
 	</update>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.it.lxr.user.po.UUser">
+		insert into u_user (id, nickname, email,
+		pswd, create_time, last_login_time,status
+		)
+		values (#{id,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{pswd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{lastLoginTime,jdbcType=TIMESTAMP},#{status,jdbcType=BIGINT}
+		)
+	</insert>
 </mapper>
