@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.it.lxr.common.utils.LoggerUtils;
 import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.common.utils.RequestUtils;
+import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.service.IPermissionService;
 import com.it.lxr.permission.token.manager.TokenManager;
@@ -86,21 +87,28 @@ public class PermissionController {
 	public Map<String,Object> deleteRoleById(String ids){
 		return permissionService.deletePermissionById(ids);
 	}
-//	
-//	/**
-//	 * 权限分配
-//	 * @param modelMap
-//	 * @param pageNo
-//	 * @param findContent
-//	 * @return
-//	 */
-//	@RequestMapping(value="allocation")
-//	public ModelAndView allocation(ModelMap modelMap,Integer pageNo,String findContent){
-////		modelMap.put("findContent", findContent);
-////		Pagination<RolePermissionAllocationBo> boPage = roleService.findRoleAndPermissionPage(modelMap,pageNo,pageSize);
-////		modelMap.put("page", boPage);
-//		return new ModelAndView("permission/allocation");
-//	}
+	
+	/**
+	 * 权限分配
+	 * @param modelMap
+	 * @param pageNo
+	 * @param findContent
+	 * @return
+	 */
+	@RequestMapping(value="allocation")
+	public ModelAndView allocation(ModelMap modelMap,String findContent,HttpServletRequest request){
+		int pageNo = (int) RequestUtils.getParameterAsDefInInt(request, "pageNo", 1);
+		if(StringUtils.isNotBlank(findContent)){
+			modelMap.put("findContent", findContent);
+		}
+		modelMap.put("pageSize", pageSize);
+		modelMap.put("pageNo", (pageNo-1)*pageSize);
+		List<RolePermissionAllocationBo> boPage = permissionService.findRoleAndPermissionPage(modelMap);
+		int num= permissionService.findRoleAndPermissionNum(modelMap);
+		Pagination<UPermission> pagination = new Pagination<UPermission>(pageNo,pageSize,num,boPage);
+		modelMap.put("page", pagination);
+		return new ModelAndView("permission/allocation");
+	}
 //	
 //	/**
 //	 * 根据角色ID查询权限

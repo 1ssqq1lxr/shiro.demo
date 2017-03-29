@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.ui.ModelMap;
 
+import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.URole;
 import com.it.lxr.user.po.UUser;
@@ -86,5 +87,17 @@ public interface PermissionDao {
 	 * @return
 	 */
 	List<URole> findNowAllPermission(Map<String, Object> map);
+	/**
+	 * 查询角色分配
+	 * @param modelMap
+	 * @return
+	 */
+	List<RolePermissionAllocationBo> findRoleAndPermission(ModelMap modelMap);
+	/**
+	 * 查询角色分配总数
+	 * @param modelMap
+	 * @return
+	 */
+	int findRoleAndPermissionNum(ModelMap modelMap);
 
 }

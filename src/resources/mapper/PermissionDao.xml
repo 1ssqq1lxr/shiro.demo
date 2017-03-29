@@ -3,88 +3,125 @@
 <mapper namespace="com.it.lxr.permission.dao.PermissionDao">
 	<select id="findRoleByUserId" parameterType="java.lang.Long"
 		resultType="java.lang.String">
-		SELECT u2.type from u_user_role u1 LEFT JOIN u_role u2 on u1.rid = u2.id
+		SELECT u2.type from u_user_role u1 LEFT JOIN u_role u2 on
+		u1.rid = u2.id
 		WHERE u1.uid = #{userId}
 	</select>
-	<select id="findPermissionByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+	<select id="findPermissionByUserId" parameterType="java.lang.Long"
+		resultType="java.lang.String">
 		SELECT
 		u4.url
 		FROM
 		u_user_role u1
-		LEFT JOIN u_role u2 ON u1.rid = u2.id
+		LEFT JOIN u_role u2 ON u1.rid
+		= u2.id
 		LEFT JOIN u_role_permission u3 ON u2.id = u3.rid
-		LEFT JOIN u_permission u4 ON u3.pid = u4.id
+		LEFT JOIN
+		u_permission u4 ON u3.pid = u4.id
 		WHERE
 		u1.uid = #{userId};
 	</select>
 	<resultMap id="UPermission" type="com.it.lxr.permission.po.UPermission">
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="url" jdbcType="VARCHAR" property="url" />
-		<result column="name" jdbcType="VARCHAR" property="name" />	
+		<result column="name" jdbcType="VARCHAR" property="name" />
 	</resultMap>
-	
-	<select id="findPage" resultMap="UPermission" >
-			select	* from u_permission
-			<if test="findContent != null">
-			where  name		like concat("%",#{findContent},"%")
-			</if>
-			limit ${pageNo},${pageSize}
+
+	<select id="findPage" resultMap="UPermission">
+		select * from u_permission
+		<if test="findContent != null">
+			where name like concat("%",#{findContent},"%")
+		</if>
+		limit ${pageNo},${pageSize}
 	</select>
 	<select id="findSumPage" resultType="java.lang.Integer">
-			select	count(*) from u_permission
-			<if test="findContent != null">
-			where  name		like concat("%",#{findContent},"%")
-			</if>
+		select count(*) from u_permission
+		<if test="findContent != null">
+			where name like concat("%",#{findContent},"%")
+		</if>
 	</select>
-	<select id="findRolePermissionByPid" parameterType="int" resultMap="UPermission">
-			select u1.* from u_permission u1 where  exists (select * from  u_role_permission u2 where u2.pid  =#{id}) and u1.id=#{id}
+	<select id="findRolePermissionByPid" parameterType="int"
+		resultMap="UPermission">
+		select u1.* from u_permission u1 where exists (select * from
+		u_role_permission u2 where u2.pid =#{id}) and u1.id=#{id}
 	</select>
 	<delete id="deletePermissionById" parameterType="int">
-			delete from u_permission where id = #{id}
+		delete from u_permission where id = #{id}
 	</delete>
 	<insert id="insertPermission" parameterType="com.it.lxr.permission.po.UPermission">
-			insert into u_permission (url,name) values(#{url},#{name})
+		insert into u_permission (url,name) values(#{url},#{name})
 	</insert>
 	<resultMap id="URole" type="com.it.lxr.permission.po.URole">
 		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="name" jdbcType="VARCHAR" property="name" />	
+		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="type" jdbcType="VARCHAR" property="type" />
-		 <association property="permissions" javaType="com.it.lxr.permission.po.UPermission">
-            <id property="id" column="pid"/>
-            <result property="name" column="pname"/>
-             <result property="url" column="purl"/>
-         </association>
+		<association property="permissions"
+			javaType="com.it.lxr.permission.po.UPermission">
+			<id property="id" column="pid" />
+			<result property="name" column="pname" />
+			<result property="url" column="purl" />
+		</association>
 	</resultMap>
-	<select id="findRolePage"  resultMap="URole">
-		select	 * from u_role 
+	<select id="findRolePage" resultMap="URole">
+		select * from u_role
 		<if test="findContent != null">
-			where  ( name like concat("%",#{findContent},"%") or	type like concat("%",#{findContent},"%") )
-			</if>
-			limit ${pageNo},${pageSize}
+			where ( name like concat("%",#{findContent},"%") or type
+			like concat("%",#{findContent},"%") )
+		</if>
+		limit ${pageNo},${pageSize}
 	</select>
-		<select id="findRoleSumPage" resultType="java.lang.Integer">
-		select	 count(*) from u_role 
+	<select id="findRoleSumPage" resultType="java.lang.Integer">
+		select count(*) from u_role
 		<if test="findContent != null">
-			where  (name like concat("%",#{findContent},"%") or	type like concat("%",#{findContent},"%"))
-			</if>
+			where (name like concat("%",#{findContent},"%") or type
+			like concat("%",#{findContent},"%"))
+		</if>
 	</select>
 	<insert id="insertRole" parameterType="com.it.lxr.permission.po.URole">
-		insert into u_role (name,type) values (#{name},#{type})
+		insert into u_role
+		(name,type) values (#{name},#{type})
 	</insert>
-	<delete id="deleteByPrimaryKey"  parameterType="java.lang.Long">
-	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+
 		delete from u_role where id = #{id}
 	</delete>
-	
+
 	<select id="findNowAllPermission" resultMap="URole">
-			SELECT
-				u2.id ,u2.`name`,u2.type,u4.id as pid,u4.`name` as pname ,u4.url as purl
-			FROM
-				u_user_role u1
-			LEFT JOIN u_role u2 ON u1.rid = u2.id
-			LEFT JOIN u_role_permission u3	ON u2.id = u3.rid
-			LEFT JOIN u_permission u4 ON u3.pid = u4.id
-			where u1.uid = #{userId}
+		SELECT
+		u2.id ,u2.`name`,u2.type,u4.id as pid,u4.`name` as pname ,u4.url as purl
+		FROM
+		u_user_role u1
+		LEFT JOIN u_role u2 ON u1.rid = u2.id
+		LEFT JOIN u_role_permission u3 ON u2.id = u3.rid
+		LEFT JOIN u_permission u4 ON u3.pid = u4.id
+		where u1.uid = #{userId}
 	</select>
-	
+
+	<sql id="limit_sql">
+		<if test="page_sql != null and page_sql != ''">
+			${page_sql}
+		</if>
+	</sql>
+	<!-- 权限分配的分页查询 -->
+	<select id="findRoleAndPermission" resultType="com.it.lxr.permission.po.RolePermissionAllocationBo">
+		select ur.id,ur.type,ur.name,group_concat(up.name)
+		permissionNames,group_concat(up.id)permissionIds from
+		u_role ur
+		left join u_role_permission urp on urp.rid = ur.id
+		left join u_permission up on up.id = urp.pid
+		<where>
+			<if test="findContent != null and findContent !='' ">
+				and (
+				LOWER(ur.name) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+				LOWER(ur.type) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+				)
+			</if>
+		</where>
+		group by ur.id
+		limit #{pageNo},#{pageSize}
+	</select>
+	<select id="findRoleAndPermissionNum" resultType="int">
+		select count(1) from u_role 
+	</select>
+
 </mapper>

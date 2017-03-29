@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import com.it.lxr.common.utils.LoggerUtils;
+import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.permission.dao.PermissionDao;
+import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.URole;
 import com.it.lxr.permission.service.IPermissionService;
@@ -166,6 +168,18 @@ public class PermissionServiceImpl implements IPermissionService {
 		List<URole>  roles=permissionDao.findNowAllPermission(map);
 		// TODO Auto-generated method stub
 		return roles;
+	}
+
+	@Override
+	public List<RolePermissionAllocationBo> findRoleAndPermissionPage(ModelMap modelMap) {
+		// TODO Auto-generated method stub
+		return permissionDao.findRoleAndPermission(modelMap);
+	}
+
+	@Override
+	public int findRoleAndPermissionNum(ModelMap modelMap) {
+		// TODO Auto-generated method stub
+		return permissionDao.findRoleAndPermissionNum(modelMap);
 	}
 	
 

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.ui.ModelMap;
 
 import com.it.lxr.common.utils.Pagination;
+import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.URole;
 import com.it.lxr.user.po.UUser;
@@ -81,6 +82,18 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	List<URole> findNowAllPermission();
+	/**
+	 * 权限分配分页
+	 * @param modelMap
+	 * @return
+	 */
+	List<RolePermissionAllocationBo> findRoleAndPermissionPage(ModelMap modelMap);
+	/**权限分配总数
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	int findRoleAndPermissionNum(ModelMap modelMap);
 
 	
 	
