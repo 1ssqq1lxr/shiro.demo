@@ -252,10 +252,11 @@
 		<!-- 其他常用包 end'-->
 
 		<!-- freemarker begin -->
+<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.20</version>
+		    <groupId>org.freemarker</groupId>
+		    <artifactId>freemarker</artifactId>
+		    <version>2.3.23</version>
 		</dependency>
 		<!-- freemarker begin -->
 		<!-- freemarker + shiro（标签） begin -->
