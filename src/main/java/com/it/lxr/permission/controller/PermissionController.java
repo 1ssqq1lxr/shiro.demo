@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,15 +21,8 @@ import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.common.utils.RequestUtils;
 import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
+import com.it.lxr.permission.po.UPermissionBo;
 import com.it.lxr.permission.service.IPermissionService;
-import com.it.lxr.permission.token.manager.TokenManager;
-import com.it.lxr.user.manager.UserManager;
-import com.it.lxr.user.po.UUser;
-import com.it.lxr.user.service.IUserService;
-import com.sun.tools.internal.ws.processor.model.Request;
-
-import freemarker.template.utility.StringUtil;
-import net.sf.json.JSONObject;
 
 @Controller
 @Scope(value="prototype")
@@ -109,18 +101,18 @@ public class PermissionController {
 		modelMap.put("page", pagination);
 		return new ModelAndView("permission/allocation");
 	}
-//	
-//	/**
-//	 * 根据角色ID查询权限
-//	 * @param id
-//	 * @return
-//	 */
-//	@RequestMapping(value="selectPermissionById")
-//	@ResponseBody
-//	public List<UPermissionBo> selectPermissionById(Long id){
-//		List<UPermissionBo> permissionBos = permissionService.selectPermissionById(id);
-//		return permissionBos;
-//	}
+	
+	/**
+	 * 根据角色ID查询权限
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="selectPermissionById")
+	@ResponseBody
+	public List<UPermissionBo> selectPermissionById(Long id){
+		List<UPermissionBo> permissionBos = permissionService.selectPermissionById(id);
+		return permissionBos;
+	}
 //	/**
 //	 * 操作角色的权限
 //	 * @param roleId 	角色ID

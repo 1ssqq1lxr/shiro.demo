@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
+import com.it.lxr.permission.po.UPermissionBo;
 import com.it.lxr.permission.po.URole;
 import com.it.lxr.user.po.UUser;
 
@@ -94,6 +95,12 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	int findRoleAndPermissionNum(ModelMap modelMap);
+	/**
+	 * 查询
+	 * @param id
+	 * @return
+	 */
+	List<UPermissionBo> selectPermissionById(Long id);
 
 	
 	

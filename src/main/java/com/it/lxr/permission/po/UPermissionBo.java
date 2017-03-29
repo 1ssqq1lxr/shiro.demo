@@ -1,6 +1,7 @@
 package com.it.lxr.permission.po;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.it.lxr.common.utils.StringUtils;
 
@@ -20,9 +21,20 @@ public class UPermissionBo extends UPermission implements Serializable {
 	 * role Id
 	 */
 	private String roleId;
-
+	
+	private List<String> roleIds;
+	
+	
+	public List<String> getRoleIds() {
+		return roleIds;
+	}
+	public void setRoleIds(List<String> roleIds) {
+		this.roleIds = roleIds;
+	}
+	private boolean check;
+	
 	public boolean isCheck(){
-		return StringUtils.equals(roleId,marker);
+		return roleIds.contains(roleId);
 	}
 	public String getMarker() {
 		return marker;

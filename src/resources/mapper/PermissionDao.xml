@@ -123,5 +123,10 @@
 	<select id="findRoleAndPermissionNum" resultType="int">
 		select count(1) from u_role 
 	</select>
-
+	<select id="selectPermissionById" parameterType="java.lang.Long" resultType="java.lang.String" >
+				select  u2.pid  roleId from u_role u1 left join u_role_permission u2 on	u1.id =u2.rid  where u1.id=#{id} ;
+	</select>
+	<select id="selectAll"  resultType="com.it.lxr.permission.po.UPermissionBo">
+		select u1.id   from u_permission u1 
+	</select>
 </mapper>
