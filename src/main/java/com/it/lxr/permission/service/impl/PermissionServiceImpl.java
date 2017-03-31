@@ -189,6 +189,7 @@ public class PermissionServiceImpl implements IPermissionService {
 		 List<UPermissionBo> selectPermissionById = permissionDao.selectAll();
 		 List<String> permissions = permissionDao.selectPermissionById(id);
 		 selectPermissionById.forEach(p->p.setRoleIds(permissions));
+		 selectPermissionById.forEach(p->p.isCheck());
 		return selectPermissionById;
 	}
 	

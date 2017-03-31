@@ -85,16 +85,17 @@
 					if(result && result.length){
 						var html =[];
 						html.push('<div class="checkbox"><label><input type="checkbox"  selectAllBox="">全选</label></div>');
-						$.each(result,function(){
+						$.each(result,function(index,permission){
+						var data = permission;
 							html.push("<div class='checkbox'><label>");
 							html.push("<input type='checkbox' selectBox='' id='");
-							html.push(this.id);
+							html.push(permission.id);
 							html.push("'");
-							if(this.check){
+							if(permission.check){
 								html.push(" checked='checked'");
 							}
 							html.push("name='");
-							html.push(this.name);
+							html.push(permission.name);
 							html.push("'/>");
 							html.push(this.name);
 							html.push('</label></div>');

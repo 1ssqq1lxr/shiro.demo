@@ -11,8 +11,21 @@ import com.it.lxr.common.utils.StringUtils;
  * @author zhou-baicheng
  *
  */
-public class UPermissionBo extends UPermission implements Serializable {
+public class UPermissionBo  implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private Long id;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
+
 	/**
 	 * 是否勾选
 	 */
@@ -22,6 +35,17 @@ public class UPermissionBo extends UPermission implements Serializable {
 	 */
 	private String roleId;
 	
+	private String name;
+	
+	private boolean check;
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	private List<String> roleIds;
 	
 	
@@ -30,11 +54,17 @@ public class UPermissionBo extends UPermission implements Serializable {
 	}
 	public void setRoleIds(List<String> roleIds) {
 		this.roleIds = roleIds;
+		this.check= roleIds.contains(id);
 	}
-	private boolean check;
-	
 	public boolean isCheck(){
-		return roleIds.contains(roleId);
+		int s=roleIds.indexOf(id.toString());
+		if(s>-1){
+			return true;
+		}
+		else{
+			return	false;
+		}
+
 	}
 	public String getMarker() {
 		return marker;
