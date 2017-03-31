@@ -113,25 +113,25 @@ public class PermissionController {
 		List<UPermissionBo> permissionBos = permissionService.selectPermissionById(id);
 		return permissionBos;
 	}
-//	/**
-//	 * 操作角色的权限
-//	 * @param roleId 	角色ID
-//	 * @param ids		权限ID，以‘,’间隔
-//	 * @return
-//	 */
-//	@RequestMapping(value="addPermission2Role")
-//	@ResponseBody
-//	public Map<String,Object> addPermission2Role(Long roleId,String ids){
-//		return permissionService.addPermission2Role(roleId,ids);
-//	}
-//	/**
-//	 * 根据角色id清空权限。
-//	 * @param roleIds	角色ID ，以‘,’间隔
-//	 * @return
-//	 */
-//	@RequestMapping(value="clearPermissionByRoleIds")
-//	@ResponseBody
-//	public Map<String,Object> clearPermissionByRoleIds(String roleIds){
-//		return permissionService.deleteByRids(roleIds);
-//	}
+	/**
+	 * 操作角色的权限
+	 * @param roleId 	角色ID
+	 * @param ids		权限ID，以‘,’间隔
+	 * @return
+	 */
+	@RequestMapping(value="addPermission2Role")
+	@ResponseBody
+	public Map<String,Object> addPermission2Role(Long roleId,String ids){
+		return permissionService.addPermission2Role(roleId,ids);
+	}
+	/**
+	 * 根据角色id清空权限。
+	 * @param roleIds	角色ID ，以‘,’间隔
+	 * @return
+	 */
+	@RequestMapping(value="clearPermissionByRoleIds")
+	@ResponseBody
+	public Map<String,Object> clearPermissionByRoleIds(String roleIds){
+		return permissionService.deleteByRids(roleIds);
+	}
 }

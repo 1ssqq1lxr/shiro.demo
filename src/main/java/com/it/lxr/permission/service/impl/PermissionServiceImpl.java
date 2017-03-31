@@ -192,6 +192,70 @@ public class PermissionServiceImpl implements IPermissionService {
 		 selectPermissionById.forEach(p->p.isCheck());
 		return selectPermissionById;
 	}
+
+	@Override
+	public Map<String, Object> addPermission2Role(Long roleId, String ids) {
+		permissionDao.deleteByRid(roleId);
+		return executePermission(roleId, ids);
+	}
+	/**
+	 * 处理权限 
+	 * @param roleId
+	 * @param ids
+	 * @return
+	 */
+	private Map<String, Object> executePermission(Long roleId, String ids){
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		int count = 0;
+		try {
+			//如果ids,permission 的id 有值，那么就添加。没值象征着：把这个角色（roleId）所有权限取消。
+			if(StringUtils.isNotBlank(ids)){
+				String[] idArray = null;
+				
+				//这里有的人习惯，直接ids.split(",") 都可以，我习惯这么写。清楚明了。
+				if(StringUtils.contains(ids, ",")){
+					idArray = ids.split(",");
+				}else{
+					idArray = new String[]{ids};
+				}
+				//添加新的。
+				for (String pid : idArray) {
+					//这里严谨点可以判断，也可以不判断。这个{@link StringUtils 我是重写了的} 
+					if(StringUtils.isNotBlank(pid)){
+//						URolePermission entity = new URolePermission(roleId,new Long(pid));
+						count += permissionDao.insertSelective(roleId,pid);
+					}
+				}
+			}
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作成功");
+		} catch (Exception e) {
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作失败，请重试！");
+		}
+		//清空拥有角色Id为：roleId 的用户权限已加载数据，让权限数据重新加载  此处查出userid 然后通过redis 查出此userid的session 再clear权限信息 此项目没有整合redis
+//		List<Long> userIds = permissionDao.findUserIdByRoleId(roleId);
+//		
+//		TokenManager.clearUserAuthByUserId(userIds);
+		resultMap.put("count", count);
+		return resultMap;
+		
+	}
+
+	@Override
+	public Map<String, Object> deleteByRids(String roleIds) {
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("roleIds", roleIds);
+			permissionDao.deleteByRids(resultMap);
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作成功");
+		} catch (Exception e) {
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作失败，请重试！");
+		}
+		return resultMap;
+	}
 	
 
 }

@@ -111,5 +111,22 @@ public interface PermissionDao {
 	 * @return
 	 */
 	List<UPermissionBo> selectAll();
+	/**
+	 * 删除此角色权限
+	 * @param roleId
+	 */
+	void deleteByRid(Long roleId);
+	/**
+	 * 角色权限建立关系
+	 * @param roleId
+	 * @param pid
+	 * @return
+	 */
+	int insertSelective(Long roleId, String pid);
+	/**
+	 * 清空所有角色权限
+	 * @param resultMap
+	 */
+	void deleteByRids(Map<String, Object> resultMap);
 
 }

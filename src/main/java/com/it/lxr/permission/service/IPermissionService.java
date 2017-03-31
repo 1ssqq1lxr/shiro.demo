@@ -101,6 +101,19 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	List<UPermissionBo> selectPermissionById(Long id);
+	/**
+	 * 添加角色权限
+	 * @param roleId
+	 * @param ids
+	 * @return
+	 */
+	Map<String, Object> addPermission2Role(Long roleId, String ids);
+	/**
+	 * 根据角色情况其权限
+	 * @param roleIds
+	 * @return
+	 */
+	Map<String, Object> deleteByRids(String roleIds);
 
 	
 	

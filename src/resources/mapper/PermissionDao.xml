@@ -129,4 +129,15 @@
 	<select id="selectAll"  resultType="com.it.lxr.permission.po.UPermissionBo">
 		select u1.id ,u1.name  from u_permission u1 
 	</select>
+	<delete id="deleteByRid" parameterType="long">
+		delete from u_role_permission where rid = #{roleId}
+	</delete>
+	<insert id="insertSelective" parameterType="int">
+		insert into u_role_permission(rid,pid) values(#{0},#{1})
+	</insert>
+	  <!-- 根据角色IDs删除-->
+  <delete id="deleteByRids">
+  	delete from u_role_permission where rid in(${roleIds})
+  </delete>
+  
 </mapper>

@@ -148,11 +148,11 @@ public class TokenManager {
 	 */
 	public static void clearUserAuthByUserId(Long...userIds){
 		
-		if(null == userIds || userIds.length == 0)	return ;
+//		if(null == userIds || userIds.length == 0)	return ;
 //		List<SimplePrincipalCollection> result = customSessionManager.getSimplePrincipalCollectionByUserId(userIds);
-		
+//		
 //		for (SimplePrincipalCollection simplePrincipalCollection : result) {
-//			realm.clearCachedAuthorizationInfo(simplePrincipalCollection);
+//		realm.clearCachedAuthorizationInfo(simplePrincipalCollection);
 //		}
 	}
 
