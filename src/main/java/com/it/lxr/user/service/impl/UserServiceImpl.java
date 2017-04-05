@@ -47,8 +47,8 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public UUser insert(UUser entity) {
 		// TODO Auto-generated method stub
-		
-		return userDao.insert(entity);
+		userDao.insert(entity);
+		return entity;
 	}
 
 

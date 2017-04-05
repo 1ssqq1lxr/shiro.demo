@@ -18,6 +18,7 @@ import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.UPermissionBo;
 import com.it.lxr.permission.po.URole;
+import com.it.lxr.permission.po.URoleBo;
 import com.it.lxr.permission.service.IPermissionService;
 import com.it.lxr.permission.token.manager.TokenManager;
 /**
@@ -267,6 +268,16 @@ public class PermissionServiceImpl implements IPermissionService {
 	public int findUserAndRoleNum(ModelMap modelMap) {
 		// TODO Auto-generated method stub
 		return permissionDao.findUserAndRoleNum(modelMap);
+	}
+
+	@Override
+	public List<URoleBo> selectRoleByUserId(Long id) {
+		// TODO Auto-generated method stub
+		 List<URoleBo> selectPermissionById = permissionDao.selectRoleAll();
+		 List<String> roles = permissionDao.selecRoleById(id);
+		 selectPermissionById.forEach(p->p.setRoleIds(roles));
+		 selectPermissionById.forEach(p->p.isCheck());
+		return selectPermissionById;
 	}
 	
 

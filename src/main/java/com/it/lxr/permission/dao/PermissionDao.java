@@ -10,6 +10,7 @@ import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.UPermissionBo;
 import com.it.lxr.permission.po.URole;
+import com.it.lxr.permission.po.URoleBo;
 import com.it.lxr.user.po.UUser;
 /**
  * lxr
@@ -140,5 +141,16 @@ public interface PermissionDao {
 	 * @return
 	 */
 	int findUserAndRoleNum(ModelMap modelMap);
+	/**
+	 * 查询所有角色
+	 * @return
+	 */
+	List<URoleBo> selectRoleAll();
+	/**
+	 * 通过用户id查询所有角色
+	 * @param id
+	 * @return
+	 */
+	List<String> selecRoleById(Long id);
 
 }

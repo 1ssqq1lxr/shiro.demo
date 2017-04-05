@@ -50,6 +50,16 @@ public class UserLoginController {
 		return new ModelAndView("user/login");
 	}
 	/**
+	 * 注册跳转
+	 * @return
+	 */
+	@RequestMapping(value="register",method=RequestMethod.GET)
+	public ModelAndView register(){
+		
+		return new ModelAndView("user/register");
+	}
+	
+	/**
 	 * 登录提交
 	 * @param entity		登录的UUser
 	 * @param rememberMe	是否记住

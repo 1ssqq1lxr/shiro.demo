@@ -11,6 +11,7 @@ import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.UPermissionBo;
 import com.it.lxr.permission.po.URole;
+import com.it.lxr.permission.po.URoleBo;
 import com.it.lxr.user.po.UUser;
 
 /**
@@ -126,6 +127,12 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	int findUserAndRoleNum(ModelMap modelMap);
+	/**
+	 * 通过用户id查询角色
+	 * @param id
+	 * @return
+	 */
+	List<URoleBo> selectRoleByUserId(Long id);
 
 	
 	

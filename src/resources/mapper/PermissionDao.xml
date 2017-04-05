@@ -136,8 +136,9 @@
 	</select>
 	<select id="selectPermissionById" parameterType="java.lang.Long"
 		resultType="java.lang.String">
-		select u2.pid roleId from u_role u1 left join u_role_permission u2 on u1.id
-		=u2.rid where u1.id=#{id} ;
+		<!-- select u2.pid roleId from u_role u1 left join u_role_permission u2 on u1.id
+		=u2.rid where u1.id=#{id} ; -->
+		select u2.pid roleId from  u_role_permission u2  where u2.rid=#{id}
 	</select>
 	<select id="selectAll" resultType="com.it.lxr.permission.po.UPermissionBo">
 		select u1.id ,u1.name from
@@ -186,6 +187,18 @@
 				)
 			</if>
 		</where>
+	</select>
+	
+	<select id="selectRoleAll" resultType="com.it.lxr.permission.po.URoleBo">
+		select u1.id ,u1.name from
+		u_role u1
+	</select>
+	<select id="selecRoleById" parameterType="long" resultType="java.lang.String">
+<!-- 		SELECT u3.name  from   u_user_role u2 
+		 LEFT JOIN	u_role u3 ON u2.rid =u3.id 
+		where u2.uid=#{id} -->
+		SELECT u2.rid  from   u_user_role u2 
+		where u2.uid=#{id}
 	</select>
 
 </mapper>

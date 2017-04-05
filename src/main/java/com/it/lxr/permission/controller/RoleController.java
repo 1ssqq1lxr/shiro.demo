@@ -23,6 +23,7 @@ import com.it.lxr.common.utils.RequestUtils;
 import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.URole;
+import com.it.lxr.permission.po.URoleBo;
 import com.it.lxr.permission.po.UserRoleAllocationBo;
 import com.it.lxr.permission.service.IPermissionService;
 import com.it.lxr.permission.token.manager.TokenManager;
@@ -129,18 +130,18 @@ public class RoleController {
 		modelMap.put("page", pagination);
 		return new ModelAndView("role/allocation");
 	}
-//	
-//	/**
-//	 * 根据用户ID查询权限
-//	 * @param id
-//	 * @return
-//	 */
-//	@RequestMapping(value="selectRoleByUserId")
-//	@ResponseBody
-//	public List<URoleBo> selectRoleByUserId(Long id){
-//		List<URoleBo> bos = userService.selectRoleByUserId(id);
-//		return bos;
-//	}
+	
+	/**
+	 * 根据用户ID查询权限
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="selectRoleByUserId")
+	@ResponseBody
+	public List<URoleBo> selectRoleByUserId(Long id){
+		List<URoleBo> bos = permissionService.selectRoleByUserId(id);
+		return bos;
+	}
 //	/**
 //	 * 操作用户的角色
 //	 * @param userId 	用户ID
