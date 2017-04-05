@@ -200,5 +200,14 @@
 		SELECT u2.rid  from   u_user_role u2 
 		where u2.uid=#{id}
 	</select>
+	<delete id="deleteRoleByUserId" parameterType="long">
+		delete from u_user_role  where uid=#{userId}
+	</delete>
+	<insert id="insertUserAndRole" parameterType="long">
+		insert into u_user_role(uid,rid) values(#{0},#{1})
+	</insert>
+	<delete id="deleteRoleByUserIds" parameterType="java.lang.String">
+		delete from u_user_role  where uid in (${userIds})
+	</delete>
 
 </mapper>

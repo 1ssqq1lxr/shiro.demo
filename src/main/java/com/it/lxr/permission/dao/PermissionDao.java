@@ -152,5 +152,23 @@ public interface PermissionDao {
 	 * @return
 	 */
 	List<String> selecRoleById(Long id);
+	/**
+	 * 通过用户id删除角色
+	 * @param userId
+	 */
+	void deleteRoleByUserId(Long userId);
+	/**
+	 * 插入用户角色关系
+	 * @param userId
+	 * @param rid
+	 * @return
+	 */
+	int insertUserAndRole(Long userId, String rid);
+	/**
+	 * 
+	 * @param userIds
+	 * @return
+	 */
+	int deleteRoleByUserIds(String userIds);
 
 }

@@ -142,25 +142,25 @@ public class RoleController {
 		List<URoleBo> bos = permissionService.selectRoleByUserId(id);
 		return bos;
 	}
-//	/**
-//	 * 操作用户的角色
-//	 * @param userId 	用户ID
-//	 * @param ids		角色ID，以‘,’间隔
-//	 * @return
-//	 */
-//	@RequestMapping(value="addRole2User")
-//	@ResponseBody
-//	public Map<String,Object> addRole2User(Long userId,String ids){
-//		return userService.addRole2User(userId,ids);
-//	}
-//	/**
-//	 * 根据用户id清空角色。
-//	 * @param userIds	用户ID ，以‘,’间隔
-//	 * @return
-//	 */
-//	@RequestMapping(value="clearRoleByUserIds")
-//	@ResponseBody
-//	public Map<String,Object> clearRoleByUserIds(String userIds){
-//		return userService.deleteRoleByUserIds(userIds);
-//	}
+	/**
+	 * 操作用户的角色
+	 * @param userId 	用户ID
+	 * @param ids		角色ID，以‘,’间隔
+	 * @return
+	 */
+	@RequestMapping(value="addRole2User")
+	@ResponseBody
+	public Map<String,Object> addRole2User(Long userId,String ids){
+		return permissionService.addRole2User(userId,ids);
+	}
+	/**
+	 * 根据用户id清空角色。
+	 * @param userIds	用户ID ，以‘,’间隔
+	 * @return
+	 */
+	@RequestMapping(value="clearRoleByUserIds")
+	@ResponseBody
+	public Map<String,Object> clearRoleByUserIds(String userIds){
+		return permissionService.deleteRoleByUserIds(userIds);
+	}
 }

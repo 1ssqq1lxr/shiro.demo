@@ -279,6 +279,60 @@ public class PermissionServiceImpl implements IPermissionService {
 		 selectPermissionById.forEach(p->p.isCheck());
 		return selectPermissionById;
 	}
+
+	@Override
+	public Map<String, Object> addRole2User(Long userId, String ids) {
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		int count = 0;
+		try {
+			//先删除原有的。
+			permissionDao.deleteRoleByUserId(userId);
+			//如果ids,role 的id 有值，那么就添加。没值象征着：把这个用户（userId）所有角色取消。
+			if(StringUtils.isNotBlank(ids)){
+				String[] idArray = null;
+				
+				//这里有的人习惯，直接ids.split(",") 都可以，我习惯这么写。清楚明了。
+				if(StringUtils.contains(ids, ",")){
+					idArray = ids.split(",");
+				}else{
+					idArray = new String[]{ids};
+				}
+				//添加新的。
+				for (String rid : idArray) {
+					//这里严谨点可以判断，也可以不判断。这个{@link StringUtils 我是重写了的} 
+					if(StringUtils.isNotBlank(rid)){
+						count += permissionDao.insertUserAndRole(userId,rid);
+					}
+				}
+			}
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作成功");
+		} catch (Exception e) {
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作失败，请重试！");
+		}
+		//清空用户的权限，迫使再次获取权限的时候，得重新加载
+//		TokenManager.clearUserAuthByUserId(userId);
+		resultMap.put("count", count);
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> deleteRoleByUserIds(String userIds) {
+		
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("userIds", userIds);
+			permissionDao.deleteRoleByUserIds(userIds);
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作成功");
+		} catch (Exception e) {
+			resultMap.put("status", 200);
+			resultMap.put("message", "操作失败，请重试！");
+		}
+		// TODO Auto-generated method stub
+		return resultMap;
+	}
 	
 
 }

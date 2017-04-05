@@ -133,6 +133,19 @@ public interface IPermissionService  {
 	 * @return
 	 */
 	List<URoleBo> selectRoleByUserId(Long id);
+	/**
+	 * 更改用户的角色
+	 * @param userId
+	 * @param ids
+	 * @return
+	 */
+	Map<String, Object> addRole2User(Long userId, String ids);
+	/**
+	 * 清空用户的角色
+	 * @param userIds
+	 * @return
+	 */
+	Map<String, Object> deleteRoleByUserIds(String userIds);
 
 	
 	
