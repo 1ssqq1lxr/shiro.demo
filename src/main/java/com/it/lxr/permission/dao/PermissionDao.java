@@ -128,5 +128,17 @@ public interface PermissionDao {
 	 * @param resultMap
 	 */
 	void deleteByRids(Map<String, Object> resultMap);
+	/**
+	 *用户角色分配
+	 * @param modelMap
+	 * @return
+	 */
+	List<RolePermissionAllocationBo> findUserAndRolePage(ModelMap modelMap);
+	/**
+	 * 用户角色分配总记录数
+	 * @param modelMap
+	 * @return
+	 */
+	int findUserAndRoleNum(ModelMap modelMap);
 
 }

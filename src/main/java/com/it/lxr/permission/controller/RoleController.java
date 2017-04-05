@@ -20,8 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.it.lxr.common.utils.LoggerUtils;
 import com.it.lxr.common.utils.Pagination;
 import com.it.lxr.common.utils.RequestUtils;
+import com.it.lxr.permission.po.RolePermissionAllocationBo;
 import com.it.lxr.permission.po.UPermission;
 import com.it.lxr.permission.po.URole;
+import com.it.lxr.permission.po.UserRoleAllocationBo;
 import com.it.lxr.permission.service.IPermissionService;
 import com.it.lxr.permission.token.manager.TokenManager;
 import com.it.lxr.user.manager.UserManager;
@@ -106,20 +108,27 @@ public class RoleController {
 		List<Map<String, Object>> data = UserManager.toTreeData(roles);
 		return data;
 	}
-//	/**
-//	 * 用户角色权限分配
-//	 * @param modelMap
-//	 * @param pageNo
-//	 * @param findContent
-//	 * @return
-//	 */
-//	@RequestMapping(value="allocation")
-//	public ModelAndView allocation(ModelMap modelMap,Integer pageNo,String findContent){
-//		modelMap.put("findContent", findContent);
-//		Pagination<UserRoleAllocationBo> boPage = userService.findUserAndRole(modelMap,pageNo,pageSize);
-//		modelMap.put("page", boPage);
-//		return new ModelAndView("role/allocation");
-//	}
+	/**
+	 * 用户角色权限分配
+	 * @param modelMap
+	 * @param pageNo
+	 * @param findContent
+	 * @return
+	 */
+	@RequestMapping(value="allocation")
+	public ModelAndView allocation(ModelMap modelMap,String findContent,HttpServletRequest request){
+		int pageNo = (int) RequestUtils.getParameterAsDefInInt(request, "pageNo", 1);
+		if(StringUtils.isNotBlank(findContent)){
+			modelMap.put("findContent", findContent);
+		}
+		modelMap.put("pageSize", pageSize);
+		modelMap.put("pageNo", (pageNo-1)*pageSize);
+		List<RolePermissionAllocationBo> boPage = permissionService.findUserAndRolePage(modelMap);
+		int num= permissionService.findUserAndRoleNum(modelMap);
+		Pagination<UserRoleAllocationBo> pagination = new Pagination<UserRoleAllocationBo>(pageNo,pageSize,num,boPage);
+		modelMap.put("page", pagination);
+		return new ModelAndView("role/allocation");
+	}
 //	
 //	/**
 //	 * 根据用户ID查询权限

@@ -256,6 +256,18 @@ public class PermissionServiceImpl implements IPermissionService {
 		}
 		return resultMap;
 	}
+
+	@Override
+	public List<RolePermissionAllocationBo> findUserAndRolePage(ModelMap modelMap) {
+		// TODO Auto-generated method stub
+		return permissionDao.findUserAndRolePage(modelMap);
+	}
+
+	@Override
+	public int findUserAndRoleNum(ModelMap modelMap) {
+		// TODO Auto-generated method stub
+		return permissionDao.findUserAndRoleNum(modelMap);
+	}
 	
 
 }

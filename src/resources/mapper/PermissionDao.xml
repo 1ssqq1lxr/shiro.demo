@@ -46,10 +46,12 @@
 		u_role_permission u2 where u2.pid =#{id}) and u1.id=#{id}
 	</select>
 	<delete id="deletePermissionById" parameterType="int">
-		delete from u_permission where id = #{id}
+		delete from
+		u_permission where id = #{id}
 	</delete>
 	<insert id="insertPermission" parameterType="com.it.lxr.permission.po.UPermission">
-		insert into u_permission (url,name) values(#{url},#{name})
+		insert into
+		u_permission (url,name) values(#{url},#{name})
 	</insert>
 	<resultMap id="URole" type="com.it.lxr.permission.po.URole">
 		<id column="id" jdbcType="INTEGER" property="id" />
@@ -83,17 +85,21 @@
 	</insert>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 
-		delete from u_role where id = #{id}
+		delete from u_role
+		where id = #{id}
 	</delete>
 
 	<select id="findNowAllPermission" resultMap="URole">
 		SELECT
-		u2.id ,u2.`name`,u2.type,u4.id as pid,u4.`name` as pname ,u4.url as purl
+		u2.id
+		,u2.`name`,u2.type,u4.id as pid,u4.`name` as pname ,u4.url as purl
 		FROM
 		u_user_role u1
 		LEFT JOIN u_role u2 ON u1.rid = u2.id
-		LEFT JOIN u_role_permission u3 ON u2.id = u3.rid
-		LEFT JOIN u_permission u4 ON u3.pid = u4.id
+		LEFT JOIN
+		u_role_permission u3 ON u2.id = u3.rid
+		LEFT JOIN u_permission u4 ON
+		u3.pid = u4.id
 		where u1.uid = #{userId}
 	</select>
 
@@ -107,13 +113,17 @@
 		select ur.id,ur.type,ur.name,group_concat(up.name)
 		permissionNames,group_concat(up.id)permissionIds from
 		u_role ur
-		left join u_role_permission urp on urp.rid = ur.id
-		left join u_permission up on up.id = urp.pid
+		left
+		join u_role_permission urp on urp.rid = ur.id
+		left join u_permission up
+		on up.id = urp.pid
 		<where>
 			<if test="findContent != null and findContent !='' ">
 				and (
-				LOWER(ur.name) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
-				LOWER(ur.type) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+				LOWER(ur.name) like
+				CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+				LOWER(ur.type)
+				like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
 				)
 			</if>
 		</where>
@@ -121,23 +131,61 @@
 		limit #{pageNo},#{pageSize}
 	</select>
 	<select id="findRoleAndPermissionNum" resultType="int">
-		select count(1) from u_role 
+		select count(1)
+		from u_role
 	</select>
-	<select id="selectPermissionById" parameterType="java.lang.Long" resultType="java.lang.String" >
-				select  u2.pid  roleId from u_role u1 left join u_role_permission u2 on	u1.id =u2.rid  where u1.id=#{id} ;
+	<select id="selectPermissionById" parameterType="java.lang.Long"
+		resultType="java.lang.String">
+		select u2.pid roleId from u_role u1 left join u_role_permission u2 on u1.id
+		=u2.rid where u1.id=#{id} ;
 	</select>
-	<select id="selectAll"  resultType="com.it.lxr.permission.po.UPermissionBo">
-		select u1.id ,u1.name  from u_permission u1 
+	<select id="selectAll" resultType="com.it.lxr.permission.po.UPermissionBo">
+		select u1.id ,u1.name from
+		u_permission u1
 	</select>
 	<delete id="deleteByRid" parameterType="long">
-		delete from u_role_permission where rid = #{roleId}
+		delete from
+		u_role_permission where rid = #{roleId}
 	</delete>
 	<insert id="insertSelective" parameterType="int">
-		insert into u_role_permission(rid,pid) values(#{0},#{1})
+		insert into
+		u_role_permission(rid,pid) values(#{0},#{1})
 	</insert>
-	  <!-- 根据角色IDs删除-->
-  <delete id="deleteByRids">
-  	delete from u_role_permission where rid in(${roleIds})
-  </delete>
-  
+	<!-- 根据角色IDs删除 -->
+	<delete id="deleteByRids">
+		delete from u_role_permission where rid in(${roleIds})
+	</delete>
+
+	<select id="findUserAndRolePage" resultType="com.it.lxr.permission.po.UserRoleAllocationBo">
+		select
+		u.id,u.nickname,u.email,u.create_time,u.last_login_time,u.status
+		,group_concat(ur.name) roleNames,group_concat(ur.id)roleIds from
+		u_user u
+		left join u_user_role uur on uur.uid = u.id
+		left join u_role ur on ur.id = uur.rid
+		<where>
+			<if test="findContent != null and findContent !='' ">
+				and (
+				LOWER(u.nickname) like LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")) or
+				LOWER(u.email) like
+				LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
+				)
+			</if>
+		</where>
+		group by u.id
+	</select>
+	
+	<select id="findUserAndRoleNum" resultType="int">
+		select	count(1) from u_user  
+		<where>
+			<if test="findContent != null and findContent !='' ">
+				and (
+				LOWER(u.nickname) like LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")) or
+				LOWER(u.email) like
+				LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
+				)
+			</if>
+		</where>
+	</select>
+
 </mapper>
