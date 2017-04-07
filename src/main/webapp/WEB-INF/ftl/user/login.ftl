@@ -160,8 +160,8 @@
                 <div class="connect" >
 	                <p>有问题请这样解决:</p>
 	                <p>
-	                    <a class="" style="width: auto; color: rgb(255, 255, 255);" target="_blank" href="http://www.sojson.com/shiro">点我看本项目介绍</a>
-	                    <a class="" style="width: auto; color: rgb(255, 255, 255);" target="_blank" href="http://jq.qq.com/?_wv=1027&k=YpqCNd">加QQ群：259217951交流</a>
+	                    <a class="" style="width: auto; color: rgb(255, 255, 255);" target="_blank" href="">点我看本项目介绍</a>
+	                    <a class="" style="width: auto; color: rgb(255, 255, 255);" target="_blank" href="http://jq.qq.com/?_wv=1027&k=YpqCNd">加QQ：1074455781交流</a>
 	                </p>
 	            </div>
                 

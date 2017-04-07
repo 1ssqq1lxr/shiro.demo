@@ -206,7 +206,7 @@
 	<insert id="insertUserAndRole" parameterType="long">
 		insert into u_user_role(uid,rid) values(#{0},#{1})
 	</insert>
-	<delete id="deleteRoleByUserIds" parameterType="java.lang.String">
+	<delete id="deleteRoleByUserIds" >
 		delete from u_user_role  where uid in (${userIds})
 	</delete>
 
